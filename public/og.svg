@@ -1,0 +1,23 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbfaf6"/>
+      <stop offset="1" stop-color="#f2eee3"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f8f4e"/>
+      <stop offset="1" stop-color="#88a67b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g opacity="0.18">
+    <path d="M1030 125c-92 22-152 86-170 185 102-18 165-84 170-185Z" fill="url(#leaf)"/>
+    <path d="M180 510c118-10 200-75 228-187-116 14-196 81-228 187Z" fill="url(#leaf)"/>
+    <path d="M720 520c72-52 96-129 74-228-86 52-110 132-74 228Z" fill="url(#leaf)"/>
+  </g>
+  <g fill="#182015">
+    <text x="96" y="290" font-family="ui-serif, Georgia, serif" font-size="68" font-weight="600">I Love Bio</text>
+    <text x="96" y="350" font-family="ui-sans-serif, system-ui" font-size="28" opacity="0.78">Supermercado ecológico · Alhaurín de la Torre</text>
+    <text x="96" y="410" font-family="ui-sans-serif, system-ui" font-size="26" opacity="0.75">Productos bio certificados · Cosmética natural · Asesoramiento cercano</text>
+  </g>
+</svg>
