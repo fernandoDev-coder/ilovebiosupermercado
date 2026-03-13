@@ -1,6 +1,7 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
+import { FacebookIcon, InstagramIcon } from "@/components/social-icons";
 import { siteConfig, whatsappUrl } from "@/lib/site-config";
 
 export function Footer() {
@@ -61,12 +62,29 @@ export function Footer() {
               <span className="text-ink/60">Email:</span> {siteConfig.contact.email}
             </p>
           </div>
-          <a className="inline-flex text-sm text-brand hover:text-brand-dark" href={siteConfig.social.instagramUrl} target="_blank" rel="noreferrer">
-            Instagram
-          </a>
-          <a className="inline-flex text-sm text-brand hover:text-brand-dark" href={siteConfig.social.facebookUrl} target="_blank" rel="noreferrer">
-            Facebook
-          </a>
+
+          <div className="flex flex-wrap gap-2 pt-1">
+            <a
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#f58529] via-[#dd2a7b] to-[#515bd4] px-4 py-2 text-sm font-medium text-white shadow-soft transition hover:brightness-105"
+              href={siteConfig.social.instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Abrir Instagram"
+            >
+              <InstagramIcon className="h-4 w-4" />
+              Instagram
+            </a>
+            <a
+              className="inline-flex items-center gap-2 rounded-full bg-[#1877F2] px-4 py-2 text-sm font-medium text-white shadow-soft transition hover:bg-[#0f63d6]"
+              href={siteConfig.social.facebookUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Abrir Facebook"
+            >
+              <FacebookIcon className="h-4 w-4" />
+              Facebook
+            </a>
+          </div>
         </div>
       </div>
 
