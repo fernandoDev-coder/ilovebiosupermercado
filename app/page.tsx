@@ -2,12 +2,10 @@
 import Link from "next/link";
 
 import { ReviewCarousel } from "@/components/review-carousel";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { fullAddress, siteConfig, whatsappUrl } from "@/lib/site-config";
 
 export default function HomePage() {
-  const mapsSrc = `https://www.google.com/maps?q=${encodeURIComponent(
-    `${siteConfig.address.streetAddress}, ${siteConfig.address.postalCode} ${siteConfig.location.city}`
-  )}&output=embed`;
+  const mapsSrc = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress())}&output=embed`;
 
   return (
     <div>
@@ -49,8 +47,8 @@ export default function HomePage() {
           <div className="relative">
             <div className="absolute -inset-10 -z-10 rounded-[48px] bg-[radial-gradient(circle_at_20%_20%,rgba(47,143,78,0.18),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(136,166,123,0.22),transparent_55%)]" />
             <Image
-              src="/illustrations/hero-produce.svg"
-              alt="Ilustración orgánica de hojas y naturaleza"
+              src="/images/fachada.jpg"
+              alt="Fachada de I Love Bio – Supermercado Ecológico"
               width={900}
               height={700}
               priority
@@ -193,3 +191,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+

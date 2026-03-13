@@ -1,7 +1,7 @@
 ﻿import type { Metadata } from "next";
 
 import { PageShell } from "@/components/page-shell";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { fullAddress, siteConfig, whatsappUrl } from "@/lib/site-config";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -9,9 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function ContactoPage() {
-  const mapsSrc = `https://www.google.com/maps?q=${encodeURIComponent(
-    `${siteConfig.address.streetAddress}, ${siteConfig.address.postalCode} ${siteConfig.location.city}`
-  )}&output=embed`;
+  const mapsSrc = `https://www.google.com/maps?q=${encodeURIComponent(fullAddress())}&output=embed`;
 
   return (
     <PageShell
@@ -68,3 +66,5 @@ export default function ContactoPage() {
     </PageShell>
   );
 }
+
+

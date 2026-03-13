@@ -14,13 +14,13 @@
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   location: { city: "Alhaurín de la Torre", region: "Málaga", country: "ES" },
   address: {
-    streetAddress: "Calle (pendiente de confirmar)",
+    streetAddress: "C. San Juan, 41",
     postalCode: "29130"
   },
   contact: {
     phoneDisplay: "+34 689 944 107",
     phoneE164Digits: "34689944107",
-    email: "hola@ilovebio.es",
+    email: "ilovebio2017@gmail.com",
     whatsappPrefill: "Hola, me gustaría consultar disponibilidad para una consulta/taller. ¿Podéis ayudarme?"
   },
   hours: {
@@ -36,4 +36,8 @@
 export function whatsappUrl() {
   const text = encodeURIComponent(siteConfig.contact.whatsappPrefill);
   return `https://wa.me/${siteConfig.contact.phoneE164Digits}?text=${text}`;
+}
+
+export function fullAddress() {
+  return `${siteConfig.address.streetAddress}, ${siteConfig.address.postalCode} ${siteConfig.location.city}, ${siteConfig.location.region}`;
 }
