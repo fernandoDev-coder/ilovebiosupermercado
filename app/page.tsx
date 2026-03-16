@@ -1,7 +1,8 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
 import { ReviewCarousel } from "@/components/review-carousel";
+import { homeReviews } from "@/lib/reviews";
 import { fullAddress, siteConfig, whatsappUrl } from "@/lib/site-config";
 
 export default function HomePage() {
@@ -143,7 +144,7 @@ export default function HomePage() {
             <p className="mt-3 max-w-xl text-ink/70">Quienes nos visitan hablan de la calidad, la variedad y, sobre todo, del trato humano.</p>
             <p className="mt-6 text-sm text-ink/60">⭐ {siteConfig.rating.value} / 5 · {siteConfig.rating.count} reseñas</p>
           </div>
-          <ReviewCarousel reviews={[{ quote: "Excelente tienda ecológica en Alhaurín de la Torre. Tienen de todo y el personal es encantador." }, { quote: "Productos de gran calidad y una atención al cliente excepcional." }, { quote: "Una de mis paradas favoritas cuando hago recados. Se nota que trabajan con vocación." }]} />
+          <ReviewCarousel reviews={homeReviews} />
         </div>
       </section>
 
@@ -191,5 +192,4 @@ export default function HomePage() {
     </div>
   );
 }
-
 

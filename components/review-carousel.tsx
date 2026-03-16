@@ -1,32 +1,98 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useMemo, useState } from "react";
 
-type Review = {
-  quote: string;
-  author?: string;
-};
+import type { Review } from "@/lib/reviews";
+
+function Stars(props: { value?: number }) {
+  const value = Math.max(0, Math.min(5, Math.round(props.value ?? 0)));
+  if (!value) return null;
+  return (
+    <div className="text-sm leading-none text-brand" aria-label={`${value} de 5 estrellas`}>
+      {"★".repeat(value)}
+      <span className="text-black/15">{"★".repeat(5 - value)}</span>
+    </div>
+  );
+}
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(media.matches);
+    update();
+
+    if (typeof media.addEventListener === "function") {
+      media.addEventListener("change", update);
+      return () => media.removeEventListener("change", update);
+    }
+
+    // Safari fallback
+    (media as unknown as { addListener: (cb: () => void) => void }).addListener(update);
+    return () => (media as unknown as { removeListener: (cb: () => void) => void }).removeListener(update);
+  }, []);
+
+  return reduced;
+}
 
 export function ReviewCarousel(props: { reviews: Review[] }) {
   const reviews = useMemo(() => props.reviews, [props.reviews]);
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     if (reviews.length <= 1) return;
+    if (paused) return;
+    if (prefersReducedMotion) return;
     const id = window.setInterval(() => setIndex((i) => (i + 1) % reviews.length), 6500);
     return () => window.clearInterval(id);
-  }, [reviews.length]);
+  }, [paused, prefersReducedMotion, reviews.length]);
 
-  const review = reviews[index] ?? reviews[0];
-  if (!review) return null;
+  if (!reviews[0]) return null;
 
   return (
-    <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-soft">
+    <div
+      className="rounded-3xl border border-black/5 bg-white p-4 shadow-soft md:p-5"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Carrusel de reseñas"
+    >
       <p className="text-sm font-medium text-brand">Opiniones</p>
-      <figure className="mt-3">
-        <blockquote className="text-lg leading-8 text-ink">{review.quote}</blockquote>
-        {review.author ? <figcaption className="mt-3 text-sm text-ink/60">— {review.author}</figcaption> : null}
-      </figure>
+
+      <div className="mt-3 overflow-hidden" aria-live="polite">
+        <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${index * 100}%)` }}>
+          {reviews.map((review, i) => (
+            <div key={`${review.author ?? "review"}-${i}`} className="w-full shrink-0 pr-1">
+              <figure>
+                <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+                  <div className="min-w-0">
+                    {review.author ? <p className="truncate text-sm font-medium text-ink">{review.author}</p> : null}
+                    {review.meta || review.when ? (
+                      <p className="truncate text-xs text-ink/55">{[review.meta, review.when].filter(Boolean).join(" · ")}</p>
+                    ) : null}
+                  </div>
+                  <Stars value={review.rating} />
+                </div>
+
+                <blockquote
+                  className={[
+                    "mt-3 whitespace-pre-line text-sm leading-6 text-ink",
+                    "overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:6]"
+                  ].join(" ")}
+                >
+                  {review.quote}
+                </blockquote>
+              </figure>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {reviews.length > 1 ? (
         <div className="mt-5 flex items-center justify-between gap-3">
