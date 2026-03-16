@@ -38,6 +38,10 @@ export function whatsappUrl() {
   return `https://wa.me/${siteConfig.contact.phoneE164Digits}?text=${text}`;
 }
 
+export function telUrl() {
+  return `tel:+${siteConfig.contact.phoneE164Digits}`;
+}
+
 export function fullAddress() {
   return `${siteConfig.address.streetAddress}, ${siteConfig.address.postalCode} ${siteConfig.location.city}, ${siteConfig.location.region}`;
 }

@@ -7,7 +7,7 @@ import { getDictionary } from "@/lib/dictionary";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 import { formatTemplate } from "@/lib/format";
 import { homeReviews } from "@/lib/reviews";
-import { fullAddress, siteConfig, whatsappUrl } from "@/lib/site-config";
+import { fullAddress, siteConfig, telUrl, whatsappUrl } from "@/lib/site-config";
 
 function normalizeLocale(value: string): Locale {
   return isLocale(value) ? value : defaultLocale;
@@ -44,14 +44,14 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               >
                 {dict.home.ctaVisit}
               </Link>
-              <Link
-                href={`/${locale}#productos`}
-                className="inline-flex items-center justify-center rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-medium text-ink transition hover:bg-black/5"
+              <a
+                href={telUrl()}
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-medium text-ink transition hover:bg-black/5"
               >
-                {dict.home.ctaProducts}
-              </Link>
-              <a href={whatsappUrl()} className="inline-flex items-center justify-center rounded-full px-4 py-3 text-sm text-ink/70 hover:text-ink">
-                {dict.home.ctaBook}
+                <span aria-hidden="true" className="leading-none">
+                  📞
+                </span>
+                {siteConfig.contact.phoneDisplay}
               </a>
             </div>
 

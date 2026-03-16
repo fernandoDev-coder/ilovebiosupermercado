@@ -10,6 +10,7 @@ export type Dictionary = {
     about: string;
     contact: string;
     visitStore: string;
+    call: string;
     menu: string;
     close: string;
     primaryNav: string;
@@ -133,6 +134,7 @@ export type Dictionary = {
     address: string;
     hours: string;
     ctaWhatsApp: string;
+    ctaCall: string;
     openInstagram: string;
     openFacebook: string;
     mapTitleTemplate: string; // {brand}
@@ -155,6 +157,7 @@ const es: Dictionary = {
     about: "Sobre",
     contact: "Contacto",
     visitStore: "Visitar la tienda",
+    call: "Llamar",
     menu: "Menú",
     close: "Cerrar",
     primaryNav: "Navegación principal",
@@ -170,7 +173,7 @@ const es: Dictionary = {
     visitUs: "Visítanos",
     openInstagram: "Abrir Instagram",
     openFacebook: "Abrir Facebook",
-    madeWithLoveTemplate: "© {year} {brand}. Hecho con cariño en Málaga.",
+    madeWithLoveTemplate: "© {year} {brand}. Todos los derechos reservados.",
     howToGetThere: "Cómo llegar",
     bookConsultation: "Reservar consulta"
   },
@@ -330,6 +333,7 @@ const es: Dictionary = {
     address: "Dirección",
     hours: "Horario",
     ctaWhatsApp: "Escribir por WhatsApp",
+    ctaCall: "Llamar",
     openInstagram: "Abrir Instagram",
     openFacebook: "Abrir Facebook",
     mapTitleTemplate: "Mapa de {brand} – Supermercado Ecológico"
@@ -352,6 +356,7 @@ const en: Dictionary = {
     about: "About",
     contact: "Contact",
     visitStore: "Visit the store",
+    call: "Call",
     menu: "Menu",
     close: "Close",
     primaryNav: "Primary navigation",
@@ -367,7 +372,7 @@ const en: Dictionary = {
     visitUs: "Visit us",
     openInstagram: "Open Instagram",
     openFacebook: "Open Facebook",
-    madeWithLoveTemplate: "© {year} {brand}. Made with love in Málaga.",
+    madeWithLoveTemplate: "© {year} {brand}. All rights reserved.",
     howToGetThere: "How to get there",
     bookConsultation: "Book a consultation"
   },
@@ -526,6 +531,7 @@ const en: Dictionary = {
     address: "Address",
     hours: "Hours",
     ctaWhatsApp: "Message on WhatsApp",
+    ctaCall: "Call",
     openInstagram: "Open Instagram",
     openFacebook: "Open Facebook",
     mapTitleTemplate: "Map of {brand} – Organic Grocery Store"
@@ -541,4 +547,3 @@ const en: Dictionary = {
 export function getDictionary(locale: Locale): Dictionary {
   return locale === "en" ? en : es;
 }
-

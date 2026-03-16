@@ -5,7 +5,7 @@ import { FacebookIcon, InstagramIcon } from "@/components/social-icons";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { formatTemplate } from "@/lib/format";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { siteConfig, telUrl, whatsappUrl } from "@/lib/site-config";
 
 export function Footer(props: { locale: Locale; dict: Dictionary }) {
   const year = new Date().getFullYear();
@@ -62,7 +62,10 @@ export function Footer(props: { locale: Locale; dict: Dictionary }) {
               {siteConfig.location.city}, {siteConfig.location.region}
             </p>
             <p className="mt-2">
-              <span className="text-ink/60">Tel/WhatsApp:</span> {siteConfig.contact.phoneDisplay}
+              <span className="text-ink/60">Tel/WhatsApp:</span>{" "}
+              <a className="prose-link" href={telUrl()}>
+                {siteConfig.contact.phoneDisplay}
+              </a>
             </p>
             <p>
               <span className="text-ink/60">Email:</span> {siteConfig.contact.email}
@@ -97,15 +100,6 @@ export function Footer(props: { locale: Locale; dict: Dictionary }) {
       <div className="border-t border-black/5">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-ink/60 md:flex-row md:items-center md:justify-between">
           <p>{formatTemplate(props.dict.footer.madeWithLoveTemplate, { year, brand: siteConfig.shortName })}</p>
-          <p>
-            <Link href={`/${props.locale}/contacto`} className="hover:text-ink">
-              {props.dict.footer.howToGetThere}
-            </Link>{" "}
-            ·{" "}
-            <a className="hover:text-ink" href={whatsappUrl()}>
-              {props.dict.footer.bookConsultation}
-            </a>
-          </p>
         </div>
       </div>
     </footer>

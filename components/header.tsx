@@ -95,19 +95,22 @@ export function Header(props: { locale: Locale; dict: Dictionary }) {
           })}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <Link href={`/${props.locale}#visita`} className="rounded-full px-4 py-2 text-sm text-ink/80 hover:bg-black/5">
+        <div className="hidden items-center gap-1 md:flex lg:gap-2">
+          <Link
+            href={`/${props.locale}#visita`}
+            className="hidden rounded-full px-4 py-2 text-sm text-ink/80 hover:bg-black/5 lg:inline-flex"
+          >
             {props.dict.nav.visitStore}
           </Link>
-          <a href={whatsappUrl()} className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-white shadow-soft hover:bg-brand-dark">
+          <a href={whatsappUrl()} className="rounded-full bg-brand px-3 py-2 text-sm font-medium text-white shadow-soft hover:bg-brand-dark lg:px-4">
             {props.dict.nav.whatsapp}
           </a>
-          <div className="inline-flex overflow-hidden rounded-full border border-black/10 bg-white">
+          <div className="inline-flex shrink-0 overflow-hidden rounded-full border border-black/10 bg-white">
             <Link
               href={hrefEs}
               aria-label={ariaEs}
               className={[
-                "px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-brand/40",
+                "px-2 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-brand/40 lg:px-3",
                 props.locale === "es" ? "bg-brand/10 text-brand" : "text-ink/80 hover:bg-black/5"
               ].join(" ")}
             >
@@ -117,7 +120,7 @@ export function Header(props: { locale: Locale; dict: Dictionary }) {
               href={hrefEn}
               aria-label={ariaEn}
               className={[
-                "px-3 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-brand/40",
+                "px-2 py-2 text-sm transition focus:outline-none focus:ring-2 focus:ring-brand/40 lg:px-3",
                 props.locale === "en" ? "bg-brand/10 text-brand" : "text-ink/80 hover:bg-black/5"
               ].join(" ")}
             >

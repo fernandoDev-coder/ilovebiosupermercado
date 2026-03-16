@@ -5,7 +5,7 @@ import { PageShell } from "@/components/page-shell";
 import { getDictionary } from "@/lib/dictionary";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 import { formatTemplate } from "@/lib/format";
-import { fullAddress, siteConfig, whatsappUrl } from "@/lib/site-config";
+import { fullAddress, siteConfig, telUrl, whatsappUrl } from "@/lib/site-config";
 
 function normalizeLocale(value: string): Locale {
   return isLocale(value) ? value : defaultLocale;
@@ -31,7 +31,7 @@ export default function ContactoPage({ params }: { params: { locale: string } })
             <div>
               <dt className="text-xs font-medium uppercase tracking-wide text-ink/50">{dict.contact.tel}</dt>
               <dd className="mt-1">
-                <a className="prose-link" href={whatsappUrl()}>
+                <a className="prose-link" href={telUrl()}>
                   {siteConfig.contact.phoneDisplay}
                 </a>
               </dd>
