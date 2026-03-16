@@ -55,14 +55,6 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               </a>
             </div>
 
-            <div className="mt-10 grid grid-cols-2 gap-3 text-sm text-ink/70 sm:grid-cols-4">
-              {dict.home.highlights.map((x) => (
-                <div key={x.t} className="rounded-2xl border border-black/5 bg-white px-4 py-3">
-                  <p className="font-medium text-ink">{x.t}</p>
-                  <p className="mt-1">{x.d}</p>
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="relative">

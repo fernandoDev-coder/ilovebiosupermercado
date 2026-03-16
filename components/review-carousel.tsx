@@ -91,7 +91,7 @@ export function ReviewCarousel(props: { reviews: Review[]; labels?: Dictionary["
                 <blockquote
                   className={[
                     "mt-3 whitespace-pre-line text-sm leading-6 text-ink",
-                    "overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:6]"
+                    "overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:4] md:[-webkit-line-clamp:6]"
                   ].join(" ")}
                 >
                   {review.quote}
@@ -117,7 +117,7 @@ export function ReviewCarousel(props: { reviews: Review[]; labels?: Dictionary["
               />
             ))}
           </div>
-          <div className="flex gap-2">
+          <div className="hidden gap-2 md:flex">
             <button
               type="button"
               className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-ink hover:bg-black/5"

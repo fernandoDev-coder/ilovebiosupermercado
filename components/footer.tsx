@@ -5,7 +5,7 @@ import { FacebookIcon, InstagramIcon } from "@/components/social-icons";
 import type { Dictionary } from "@/lib/dictionary";
 import type { Locale } from "@/lib/i18n";
 import { formatTemplate } from "@/lib/format";
-import { siteConfig, telUrl, whatsappUrl } from "@/lib/site-config";
+import { siteConfig, telUrl } from "@/lib/site-config";
 
 export function Footer(props: { locale: Locale; dict: Dictionary }) {
   const year = new Date().getFullYear();
@@ -21,17 +21,6 @@ export function Footer(props: { locale: Locale; dict: Dictionary }) {
             <p className="font-serif text-lg text-ink">{siteConfig.name}</p>
           </div>
           <p className="text-sm text-ink/70">{formatTemplate(props.dict.footer.taglineTemplate, { city: siteConfig.location.city })}</p>
-          <div className="flex flex-wrap gap-2">
-            <a href={whatsappUrl()} className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark">
-              {props.dict.nav.whatsapp}
-            </a>
-            <Link
-              href={`/${props.locale}/contacto`}
-              className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-ink hover:bg-black/5"
-            >
-              {props.dict.footer.contact}
-            </Link>
-          </div>
         </div>
 
         <div className="space-y-3">
