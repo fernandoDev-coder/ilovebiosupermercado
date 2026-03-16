@@ -5,6 +5,7 @@ import "@/app/globals.css";
 import { defaultLocale, isLocale } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
+export const viewport = { width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const localeHeader = headers().get("x-locale");

@@ -57,7 +57,7 @@ export function ReviewCarousel(props: { reviews: Review[]; labels?: Dictionary["
 
   return (
     <div
-      className="rounded-3xl border border-black/5 bg-white p-4 shadow-soft md:p-5"
+      className="rounded-3xl border border-black/5 bg-white p-3 shadow-soft sm:p-4 md:p-5"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -66,7 +66,7 @@ export function ReviewCarousel(props: { reviews: Review[]; labels?: Dictionary["
       aria-roledescription="carousel"
       aria-label={labels?.aria ?? "Carousel"}
     >
-      <p className="text-sm font-medium text-brand">{labels?.title ?? "Reviews"}</p>
+      <p className="text-xs font-medium text-brand sm:text-sm">{labels?.title ?? "Reviews"}</p>
 
       <div className="mt-3 overflow-hidden" aria-live="polite">
         <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${index * 100}%)` }}>
@@ -90,8 +90,8 @@ export function ReviewCarousel(props: { reviews: Review[]; labels?: Dictionary["
 
                 <blockquote
                   className={[
-                    "mt-3 whitespace-pre-line text-sm leading-6 text-ink",
-                    "overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:4] md:[-webkit-line-clamp:6]"
+                    "mt-3 whitespace-pre-line text-[13px] leading-5 text-ink sm:text-sm sm:leading-6",
+                    "overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:3] sm:[-webkit-line-clamp:4] md:[-webkit-line-clamp:6]"
                   ].join(" ")}
                 >
                   {review.quote}
@@ -117,7 +117,7 @@ export function ReviewCarousel(props: { reviews: Review[]; labels?: Dictionary["
               />
             ))}
           </div>
-          <div className="hidden gap-2 md:flex">
+          <div className="hidden gap-2 lg:flex">
             <button
               type="button"
               className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-ink hover:bg-black/5"
