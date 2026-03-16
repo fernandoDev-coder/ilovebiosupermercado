@@ -2,13 +2,15 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+import type { Dictionary } from "@/lib/dictionary";
 import type { Review } from "@/lib/reviews";
+import { formatTemplate } from "@/lib/format";
 
-function Stars(props: { value?: number }) {
+function Stars(props: { value?: number; ariaLabel?: string }) {
   const value = Math.max(0, Math.min(5, Math.round(props.value ?? 0)));
   if (!value) return null;
   return (
-    <div className="text-sm leading-none text-brand" aria-label={`${value} de 5 estrellas`}>
+    <div className="text-sm leading-none text-brand" aria-label={props.ariaLabel ?? `${value} / 5`}>
       {"★".repeat(value)}
       <span className="text-black/15">{"★".repeat(5 - value)}</span>
     </div>
@@ -36,11 +38,12 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-export function ReviewCarousel(props: { reviews: Review[] }) {
+export function ReviewCarousel(props: { reviews: Review[]; labels?: Dictionary["reviewCarousel"] }) {
   const reviews = useMemo(() => props.reviews, [props.reviews]);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const labels = props.labels;
 
   useEffect(() => {
     if (reviews.length <= 1) return;
@@ -61,9 +64,9 @@ export function ReviewCarousel(props: { reviews: Review[] }) {
       onBlur={() => setPaused(false)}
       role="region"
       aria-roledescription="carousel"
-      aria-label="Carrusel de reseñas"
+      aria-label={labels?.aria ?? "Carousel"}
     >
-      <p className="text-sm font-medium text-brand">Opiniones</p>
+      <p className="text-sm font-medium text-brand">{labels?.title ?? "Reviews"}</p>
 
       <div className="mt-3 overflow-hidden" aria-live="polite">
         <div className="flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${index * 100}%)` }}>
@@ -77,7 +80,12 @@ export function ReviewCarousel(props: { reviews: Review[] }) {
                       <p className="truncate text-xs text-ink/55">{[review.meta, review.when].filter(Boolean).join(" · ")}</p>
                     ) : null}
                   </div>
-                  <Stars value={review.rating} />
+                  <Stars
+                    value={review.rating}
+                    ariaLabel={
+                      review.rating && labels?.starsTemplate ? formatTemplate(labels.starsTemplate, { value: review.rating }) : undefined
+                    }
+                  />
                 </div>
 
                 <blockquote
@@ -102,7 +110,9 @@ export function ReviewCarousel(props: { reviews: Review[] }) {
                 key={i}
                 type="button"
                 className={["h-2 w-2 rounded-full transition", i === index ? "bg-brand" : "bg-black/10 hover:bg-black/20"].join(" ")}
-                aria-label={`Ir a la reseña ${i + 1}`}
+                aria-label={
+                  labels?.goToReviewTemplate ? formatTemplate(labels.goToReviewTemplate, { n: i + 1 }) : `Go to review ${i + 1}`
+                }
                 onClick={() => setIndex(i)}
               />
             ))}
@@ -113,14 +123,14 @@ export function ReviewCarousel(props: { reviews: Review[] }) {
               className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-ink hover:bg-black/5"
               onClick={() => setIndex((i) => (i - 1 + reviews.length) % reviews.length)}
             >
-              Anterior
+              {labels?.prev ?? "Previous"}
             </button>
             <button
               type="button"
               className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-ink hover:bg-black/5"
               onClick={() => setIndex((i) => (i + 1) % reviews.length)}
             >
-              Siguiente
+              {labels?.next ?? "Next"}
             </button>
           </div>
         </div>

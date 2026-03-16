@@ -1,12 +1,12 @@
-﻿import { siteConfig } from "@/lib/site-config";
+import { siteConfig } from "@/lib/site-config";
 
-export function getLocalBusinessJsonLd() {
+export function getLocalBusinessJsonLd(props?: { description?: string; url?: string }) {
   return {
     "@context": "https://schema.org",
     "@type": "HealthFoodStore",
     name: siteConfig.name,
-    url: siteConfig.siteUrl,
-    description: siteConfig.description,
+    url: props?.url ?? siteConfig.siteUrl,
+    description: props?.description ?? siteConfig.description,
     telephone: siteConfig.contact.phoneDisplay,
     email: siteConfig.contact.email,
     priceRange: "€€",

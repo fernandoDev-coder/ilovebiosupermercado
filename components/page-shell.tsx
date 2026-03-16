@@ -1,4 +1,4 @@
-﻿import type { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export function PageShell(props: { title: string; lead?: string; children: ReactNode }) {
   return (

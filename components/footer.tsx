@@ -2,9 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { FacebookIcon, InstagramIcon } from "@/components/social-icons";
+import type { Dictionary } from "@/lib/dictionary";
+import type { Locale } from "@/lib/i18n";
+import { formatTemplate } from "@/lib/format";
 import { siteConfig, whatsappUrl } from "@/lib/site-config";
 
-export function Footer() {
+export function Footer(props: { locale: Locale; dict: Dictionary }) {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="border-t border-black/5 bg-sand">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
@@ -15,42 +20,43 @@ export function Footer() {
             </span>
             <p className="font-serif text-lg text-ink">{siteConfig.name}</p>
           </div>
-          <p className="text-sm text-ink/70">
-            Productos ecológicos certificados, cosmética natural y asesoramiento cercano en {siteConfig.location.city}.
-          </p>
+          <p className="text-sm text-ink/70">{formatTemplate(props.dict.footer.taglineTemplate, { city: siteConfig.location.city })}</p>
           <div className="flex flex-wrap gap-2">
             <a href={whatsappUrl()} className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark">
-              WhatsApp
+              {props.dict.nav.whatsapp}
             </a>
-            <Link href="/contacto" className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-ink hover:bg-black/5">
-              Contacto
+            <Link
+              href={`/${props.locale}/contacto`}
+              className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-ink hover:bg-black/5"
+            >
+              {props.dict.footer.contact}
             </Link>
           </div>
         </div>
 
         <div className="space-y-3">
-          <p className="text-sm font-medium text-ink">Secciones</p>
+          <p className="text-sm font-medium text-ink">{props.dict.footer.sections}</p>
           <ul className="grid gap-2 text-sm text-ink/70">
             <li>
-              <Link className="hover:text-ink" href="/productos">
-                Productos
+              <Link className="hover:text-ink" href={`/${props.locale}/productos`}>
+                {props.dict.nav.products}
               </Link>
             </li>
             <li>
-              <Link className="hover:text-ink" href="/servicios">
-                Servicios
+              <Link className="hover:text-ink" href={`/${props.locale}/servicios`}>
+                {props.dict.nav.services}
               </Link>
             </li>
             <li>
-              <Link className="hover:text-ink" href="/sobre">
-                Sobre I Love Bio
+              <Link className="hover:text-ink" href={`/${props.locale}/sobre`}>
+                {props.dict.nav.about} {siteConfig.shortName}
               </Link>
             </li>
           </ul>
         </div>
 
         <div className="space-y-3">
-          <p className="text-sm font-medium text-ink">Visítanos</p>
+          <p className="text-sm font-medium text-ink">{props.dict.footer.visitUs}</p>
           <div className="text-sm text-ink/70">
             <p>
               {siteConfig.location.city}, {siteConfig.location.region}
@@ -69,7 +75,7 @@ export function Footer() {
               href={siteConfig.social.instagramUrl}
               target="_blank"
               rel="noreferrer"
-              aria-label="Abrir Instagram"
+              aria-label={props.dict.footer.openInstagram}
             >
               <InstagramIcon className="h-4 w-4" />
               Instagram
@@ -79,7 +85,7 @@ export function Footer() {
               href={siteConfig.social.facebookUrl}
               target="_blank"
               rel="noreferrer"
-              aria-label="Abrir Facebook"
+              aria-label={props.dict.footer.openFacebook}
             >
               <FacebookIcon className="h-4 w-4" />
               Facebook
@@ -90,16 +96,14 @@ export function Footer() {
 
       <div className="border-t border-black/5">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-ink/60 md:flex-row md:items-center md:justify-between">
+          <p>{formatTemplate(props.dict.footer.madeWithLoveTemplate, { year, brand: siteConfig.shortName })}</p>
           <p>
-            © {new Date().getFullYear()} {siteConfig.shortName}. Hecho con cariño en Málaga.
-          </p>
-          <p>
-            <Link href="/contacto" className="hover:text-ink">
-              Cómo llegar
+            <Link href={`/${props.locale}/contacto`} className="hover:text-ink">
+              {props.dict.footer.howToGetThere}
             </Link>{" "}
             ·{" "}
             <a className="hover:text-ink" href={whatsappUrl()}>
-              Reservar consulta
+              {props.dict.footer.bookConsultation}
             </a>
           </p>
         </div>
