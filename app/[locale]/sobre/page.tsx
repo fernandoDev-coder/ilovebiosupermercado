@@ -5,6 +5,7 @@ import { PageShell } from "@/components/page-shell";
 import { getDictionary } from "@/lib/dictionary";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 import { formatTemplate } from "@/lib/format";
+import { getLocalizedAlternates } from "@/lib/seo";
 import { siteConfig, whatsappUrl } from "@/lib/site-config";
 
 function normalizeLocale(value: string): Locale {
@@ -14,7 +15,16 @@ function normalizeLocale(value: string): Locale {
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = normalizeLocale(params.locale);
   const dict = getDictionary(locale);
-  return { title: dict.metadata.aboutTitle, description: dict.metadata.aboutDescription };
+  return {
+    title: dict.metadata.aboutTitle,
+    description: `${dict.metadata.aboutDescription} Tienda ecológica de barrio en ${siteConfig.location.city}.`,
+    alternates: getLocalizedAlternates(locale, "/sobre"),
+    keywords: [
+      "tienda ecológica Alhaurín de la Torre",
+      "supermercado bio Málaga",
+      "herbolario Alhaurín de la Torre"
+    ]
+  };
 }
 
 export default function SobrePage({ params }: { params: { locale: string } }) {

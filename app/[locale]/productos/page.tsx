@@ -4,7 +4,8 @@ import Link from "next/link";
 import { PageShell } from "@/components/page-shell";
 import { getDictionary } from "@/lib/dictionary";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
-import { whatsappUrl } from "@/lib/site-config";
+import { getLocalizedAlternates } from "@/lib/seo";
+import { siteConfig, whatsappUrl } from "@/lib/site-config";
 
 function normalizeLocale(value: string): Locale {
   return isLocale(value) ? value : defaultLocale;
@@ -13,7 +14,16 @@ function normalizeLocale(value: string): Locale {
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = normalizeLocale(params.locale);
   const dict = getDictionary(locale);
-  return { title: dict.metadata.productsTitle, description: dict.metadata.productsDescription };
+  return {
+    title: dict.metadata.productsTitle,
+    description: `${dict.metadata.productsDescription} En ${siteConfig.location.city}, ${siteConfig.location.region}.`,
+    alternates: getLocalizedAlternates(locale, "/productos"),
+    keywords: [
+      "productos ecológicos Alhaurín de la Torre",
+      "cosmética natural Málaga",
+      "suplementos naturales Alhaurín de la Torre"
+    ]
+  };
 }
 
 export default function ProductosPage({ params }: { params: { locale: string } }) {

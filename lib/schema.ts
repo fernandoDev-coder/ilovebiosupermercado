@@ -1,4 +1,4 @@
-import { siteConfig } from "@/lib/site-config";
+import { mapsUrl, siteConfig } from "@/lib/site-config";
 
 export function getLocalBusinessJsonLd(props?: { description?: string; url?: string }) {
   return {
@@ -9,8 +9,9 @@ export function getLocalBusinessJsonLd(props?: { description?: string; url?: str
     description: props?.description ?? siteConfig.description,
     telephone: siteConfig.contact.phoneDisplay,
     email: siteConfig.contact.email,
-    priceRange: "€€",
+    priceRange: "EUR",
     image: [`${siteConfig.siteUrl}/og.svg`],
+    hasMap: mapsUrl(),
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.address.streetAddress,
@@ -18,6 +19,11 @@ export function getLocalBusinessJsonLd(props?: { description?: string; url?: str
       addressLocality: siteConfig.location.city,
       addressRegion: siteConfig.location.region,
       addressCountry: siteConfig.location.country
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: siteConfig.geo.latitude,
+      longitude: siteConfig.geo.longitude
     },
     openingHoursSpecification: [
       {
@@ -39,10 +45,22 @@ export function getLocalBusinessJsonLd(props?: { description?: string; url?: str
         closes: "14:00"
       }
     ],
+    areaServed: siteConfig.areaServed.map((name) => ({
+      "@type": "City",
+      name
+    })),
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: siteConfig.rating.value,
       reviewCount: siteConfig.rating.count
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      telephone: siteConfig.contact.phoneDisplay,
+      email: siteConfig.contact.email,
+      areaServed: siteConfig.location.country,
+      availableLanguage: ["es", "en"]
     },
     sameAs: [siteConfig.social.instagramUrl, siteConfig.social.facebookUrl]
   };

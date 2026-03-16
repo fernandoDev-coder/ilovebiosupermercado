@@ -7,6 +7,7 @@ import { PageTransition } from "@/components/page-transition";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { getDictionary } from "@/lib/dictionary";
 import { defaultLocale, isLocale, locales, type Locale } from "@/lib/i18n";
+import { getLocalizedAlternates, getLocalizedUrl } from "@/lib/seo";
 import { getLocalBusinessJsonLd } from "@/lib/schema";
 import { siteConfig } from "@/lib/site-config";
 
@@ -35,10 +36,11 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     },
     description: dict.metadata.siteDescription,
     keywords: [...siteConfig.keywords],
+    alternates: getLocalizedAlternates(locale),
     openGraph: {
       title: siteConfig.name,
       description: dict.metadata.siteDescription,
-      url: siteConfig.siteUrl,
+      url: getLocalizedUrl(locale),
       siteName: siteConfig.name,
       locale: ogLocale,
       type: "website",

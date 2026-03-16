@@ -5,6 +5,7 @@ import { PageShell } from "@/components/page-shell";
 import { getDictionary } from "@/lib/dictionary";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 import { formatTemplate } from "@/lib/format";
+import { getLocalizedAlternates } from "@/lib/seo";
 import { fullAddress, siteConfig, telUrl, whatsappUrl } from "@/lib/site-config";
 
 function normalizeLocale(value: string): Locale {
@@ -14,7 +15,16 @@ function normalizeLocale(value: string): Locale {
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = normalizeLocale(params.locale);
   const dict = getDictionary(locale);
-  return { title: dict.metadata.contactTitle, description: dict.metadata.contactDescription };
+  return {
+    title: dict.metadata.contactTitle,
+    description: dict.metadata.contactDescription,
+    alternates: getLocalizedAlternates(locale, "/contacto"),
+    keywords: [
+      `cómo llegar ${siteConfig.shortName}`,
+      `horario ${siteConfig.shortName}`,
+      `contacto supermercado ecológico ${siteConfig.location.city}`
+    ]
+  };
 }
 
 export default function ContactoPage({ params }: { params: { locale: string } }) {

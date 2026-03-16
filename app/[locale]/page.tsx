@@ -7,6 +7,7 @@ import { getDictionary } from "@/lib/dictionary";
 import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 import { formatTemplate } from "@/lib/format";
 import { homeReviews } from "@/lib/reviews";
+import { getLocalizedAlternates } from "@/lib/seo";
 import { fullAddress, siteConfig, telUrl, whatsappUrl } from "@/lib/site-config";
 
 function normalizeLocale(value: string): Locale {
@@ -16,7 +17,17 @@ function normalizeLocale(value: string): Locale {
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   const locale = normalizeLocale(params.locale);
   const dict = getDictionary(locale);
-  return { title: dict.metadata.homeTitle, description: dict.metadata.siteDescription };
+  return {
+    title: dict.metadata.homeTitle,
+    description: dict.metadata.siteDescription,
+    alternates: getLocalizedAlternates(locale),
+    keywords: [
+      ...siteConfig.keywords,
+      `supermercado ecológico ${siteConfig.location.city}`,
+      `tienda bio ${siteConfig.location.city}`,
+      `productos ecológicos ${siteConfig.location.region}`
+    ]
+  };
 }
 
 export default function HomePage({ params }: { params: { locale: string } }) {
